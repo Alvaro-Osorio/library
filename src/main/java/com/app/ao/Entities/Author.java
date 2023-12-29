@@ -1,7 +1,10 @@
-package Entities;
+package com.app.ao.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -24,4 +27,7 @@ public class Author {
 
     @Column
     private String nationality;
+
+    @OneToMany(mappedBy = "author" , cascade = CascadeType.ALL, fetch = FetchType.LAZY , orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
 }

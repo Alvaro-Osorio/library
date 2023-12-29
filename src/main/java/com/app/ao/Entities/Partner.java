@@ -1,4 +1,4 @@
-package Entities;
+package com.app.ao.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,27 +9,20 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="libro")
-public class Book {
+@Table(name="socio")
+public class Partner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String title;
+    private String name;
 
     @Column
-    private int pages;
+    private String lastName;
 
     @Column
-    private String author;
-
-    @Column
-    private String editorial;
-
-    @Column
-    private String isbn;
-
+    private String address;
 
 }
