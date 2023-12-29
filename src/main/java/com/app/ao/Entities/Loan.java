@@ -1,4 +1,4 @@
-package Entities;
+package com.app.ao.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,4 +27,8 @@ public class Loan {
 
     @Column
     private String returnDate;
+
+    @ManyToOne
+    @JoinColumn(name = "id_libro", nullable = false)
+    private Book book;
 }
