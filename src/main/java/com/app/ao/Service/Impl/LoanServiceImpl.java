@@ -1,7 +1,7 @@
 package com.app.ao.Service.Impl;
 
 import com.app.ao.Entities.Loan;
-import com.app.ao.Repository.LoanRepository;
+import com.app.ao.Persistence.ILoanDAO;
 import com.app.ao.Service.ILoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,25 +12,25 @@ import java.util.Optional;
 @Service
 public class LoanServiceImpl implements ILoanService {
     @Autowired
-    private LoanRepository loanRepository;
+    private ILoanDAO loanDAO;
 
     @Override
     public Optional<Loan> findById(Long id) {
-        return loanRepository.findById(id);
+        return loanDAO.findById(id);
     }
 
     @Override
     public List<Loan> findAll() {
-        return ((List<Loan>) loanRepository.findAll());
+        return loanDAO.findAll();
     }
 
     @Override
     public void save(Loan loan) {
-        loanRepository.save(loan);
+        loanDAO.save(loan);
     }
 
     @Override
     public void deleteById(Long id) {
-        loanRepository.deleteById(id);
+        loanDAO.deleteById(id);
     }
 }

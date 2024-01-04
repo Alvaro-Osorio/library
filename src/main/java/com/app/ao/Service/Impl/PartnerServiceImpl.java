@@ -1,7 +1,7 @@
 package com.app.ao.Service.Impl;
 
 import com.app.ao.Entities.Partner;
-import com.app.ao.Repository.PartnerRepository;
+import com.app.ao.Persistence.IPartnerDAO;
 import com.app.ao.Service.IPartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,25 +13,25 @@ import java.util.Optional;
 public class PartnerServiceImpl implements IPartnerService {
 
     @Autowired
-    private PartnerRepository partnerRepository;
+    private IPartnerDAO partnerDAO;
 
     @Override
     public Optional<Partner> findById(Long id) {
-        return partnerRepository.findById(id);
+        return partnerDAO.findById(id);
     }
 
     @Override
     public List<Partner> findAll() {
-        return (List<Partner>) partnerRepository.findAll();
+        return partnerDAO.findAll();
     }
 
     @Override
     public void save(Partner partner) {
-        partnerRepository.save(partner);
+        partnerDAO.save(partner);
     }
 
     @Override
     public void deleteById(Long id) {
-        partnerRepository.deleteById(id);
+        partnerDAO.deleteById(id);
     }
 }
