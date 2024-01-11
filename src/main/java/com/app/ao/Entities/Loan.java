@@ -17,18 +17,16 @@ public class Loan {
     private Long id;
 
     @Column
-    private int partnerId;
-
-    @Column
-    private int bookId;
-
-    @Column
     private String loanDate;
 
     @Column
     private String returnDate;
 
     @ManyToOne
-    @JoinColumn(name = "id_libro", nullable = false)
+    @JoinColumn(name = "id_libro")
     private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "id_socio")
+    private Partner partner;
 }
