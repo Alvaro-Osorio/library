@@ -75,6 +75,7 @@ public class AuthorController {
         return ResponseEntity.created(new URI("/api/author/save")).build();
     }
 
+    @PutMapping("/udpate/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody AuthorDTO authorDTO){
 
         Optional<Author> authorOptional = authorService.findById(id);
@@ -99,4 +100,5 @@ public class AuthorController {
         }
         return ResponseEntity.badRequest().build();
     }
+
 }

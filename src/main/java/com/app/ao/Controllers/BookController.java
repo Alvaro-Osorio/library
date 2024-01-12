@@ -83,4 +83,27 @@ public class BookController {
                         .build());
         return ResponseEntity.created(new URI("/api/book/save")).build();
     }
+
+    public ResponseEntity<?> update(@PathVariable Long id , @RequestBody BookDTO bookDTO){
+        Optional<Book> bookOptional =  bookService.findById(id);
+
+        if (bookOptional.isPresent()){
+            Book book = bookOptional.get();
+            book.setTitle(bookDTO.getTitle());
+            book.setPages(bookDTO.getPages());
+            book.setUnits(bookDTO.getUnits());
+            book.setIsbn(bookDTO.getIsbn());
+
+            return ResponseEntity.ok("Actulizado");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        if (id != null){
+            bookService.deleteById(id);
+            return ResponseEntity.ok("Eliminado");
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }
