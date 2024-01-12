@@ -1,5 +1,6 @@
 package com.app.ao.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +30,6 @@ public class Author {
     private String nationality;
 
     @OneToMany(mappedBy = "author" , cascade = CascadeType.ALL, fetch = FetchType.LAZY , orphanRemoval = true)
+    @JsonIgnore
     private List<Book> books = new ArrayList<>();
 }
