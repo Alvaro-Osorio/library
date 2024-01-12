@@ -84,6 +84,7 @@ public class BookController {
         return ResponseEntity.created(new URI("/api/book/save")).build();
     }
 
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id , @RequestBody BookDTO bookDTO){
         Optional<Book> bookOptional =  bookService.findById(id);
 
@@ -99,6 +100,7 @@ public class BookController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         if (id != null){
             bookService.deleteById(id);

@@ -49,6 +49,7 @@ public class EditorialController {
 
         return ResponseEntity.ok(editorialsDTO);
     }
+
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody EditorialDTO editorialDTO) throws URISyntaxException {
 
@@ -66,6 +67,7 @@ public class EditorialController {
 
         return ResponseEntity.created(new URI("/api/editorial/save")).build();
     }
+
     @PutMapping("/update")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody EditorialDTO editorialDTO){
         Optional<Editorial> editorialOptional = editorialService.findById(id);
@@ -81,6 +83,7 @@ public class EditorialController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         if(id != null){
             editorialService.deleteById(id);
