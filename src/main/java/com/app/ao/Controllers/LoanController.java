@@ -90,4 +90,14 @@ public class LoanController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+
+        if (id != null){
+            loanService.deleteById(id);
+            return ResponseEntity.ok("Eliminado");
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }
