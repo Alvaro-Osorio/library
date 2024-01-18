@@ -78,6 +78,7 @@ public class LoanController {
         return ResponseEntity.created(new URI("/api/loan/save")).build();
     }
 
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody LoanDTO loanDTO){
         Optional<Loan> loanOptional = loanService.findById(id);
 
