@@ -28,6 +28,7 @@ public class CategoryController {
             Category category =categoryOptional.get();
 
             CategoryDTO categoryDTO = CategoryDTO.builder()
+                            .id(category.getId())
                             .name(category.getName())
                             .books(category.getBooks())
                     .build();
