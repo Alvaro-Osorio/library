@@ -44,6 +44,7 @@ public class LoanController {
 
        List<LoanDTO> loansDTO = loanList.stream()
                .map(loan -> LoanDTO.builder()
+                       .id(loan.getId())
                        .loanDate(loan.getLoanDate())
                        .returnDate(loan.getReturnDate())
                        .book(loan.getBook())
