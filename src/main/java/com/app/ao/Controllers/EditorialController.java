@@ -27,6 +27,7 @@ public class EditorialController {
             Editorial editorial = editorialOptional.get();
 
             EditorialDTO editorialDTO = EditorialDTO.builder()
+                    .id(editorial.getId())
                     .name(editorial.getName())
                     .address(editorial.getAddress())
                     .books(editorial.getBooks())
@@ -42,6 +43,7 @@ public class EditorialController {
 
         List<EditorialDTO> editorialsDTO = editorials.stream()
                 .map(editorial -> EditorialDTO.builder()
+                        .id(editorial.getId())
                         .name(editorial.getName())
                         .address(editorial.getAddress())
                         .build())

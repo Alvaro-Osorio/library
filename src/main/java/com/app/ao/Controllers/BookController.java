@@ -49,6 +49,7 @@ public class BookController {
 
         List<BookDTO> booksDTO = books.stream()
                 .map(book -> BookDTO.builder()
+                        .id(book.getId())
                         .title(book.getTitle())
                         .pages(book.getPages())
                         .units(book.getUnits())

@@ -42,6 +42,7 @@ public class CategoryController {
 
         List<CategoryDTO> categoryDTOS = categoryList.stream()
                 .map(category -> CategoryDTO.builder()
+                        .id(category.getId())
                         .name(category.getName())
                         .books(category.getBooks())
                         .build()

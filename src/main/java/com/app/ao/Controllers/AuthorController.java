@@ -75,12 +75,13 @@ public class AuthorController {
         return ResponseEntity.created(new URI("/api/author/save")).build();
     }
 
-    @PutMapping("/udpate/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody AuthorDTO authorDTO){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@RequestBody AuthorDTO authorDTO,@PathVariable Long id){
 
         Optional<Author> authorOptional = authorService.findById(id);
 
         if (authorOptional.isPresent()){
+
             Author author = authorOptional.get();
             author.setName(authorDTO.getName());
             author.setLastName(authorDTO.getLastName());
