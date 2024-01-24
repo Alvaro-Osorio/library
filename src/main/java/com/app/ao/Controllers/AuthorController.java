@@ -3,6 +3,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.AuthorDTO;
 import com.app.ao.Entities.Author;
 import com.app.ao.Service.IAuthorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,17 +57,8 @@ public class AuthorController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody AuthorDTO authorDTO) throws URISyntaxException {
+    public ResponseEntity<?> save(@RequestBody @Valid AuthorDTO authorDTO) throws URISyntaxException {
 
-        if (authorDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (authorDTO.getNationality().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (authorDTO.getLastName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
         authorService.save(Author.builder()
                 .name(authorDTO.getName())
                 .lastName(authorDTO.getLastName())
