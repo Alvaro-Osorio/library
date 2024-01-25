@@ -3,6 +3,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.BookDTO;
 import com.app.ao.Entities.Book;
 import com.app.ao.Service.IBookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,15 +64,7 @@ public class BookController {
         return ResponseEntity.ok(booksDTO);
     }
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody BookDTO bookDTO) throws URISyntaxException {
-
-        if (bookDTO.getTitle().isBlank()){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getPages()<1){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getUnits()<1){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getIsbn().isBlank()){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getAuthor() == null){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getEditorial() == null){return ResponseEntity.badRequest().build();}
-        if (bookDTO.getCategory() == null){return ResponseEntity.badRequest().build();}
+    public ResponseEntity<?> save(@RequestBody @Valid BookDTO bookDTO) throws URISyntaxException {
 
         bookService.save(Book.builder()
                         .title(bookDTO.getTitle())
@@ -86,7 +79,7 @@ public class BookController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id , @RequestBody BookDTO bookDTO){
+    public ResponseEntity<?> update(@PathVariable Long id , @RequestBody @Valid BookDTO bookDTO){
         Optional<Book> bookOptional =  bookService.findById(id);
 
         if (bookOptional.isPresent()){

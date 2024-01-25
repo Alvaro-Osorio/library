@@ -2,7 +2,9 @@ package com.app.ao.Controllers.DTO;
 
 import com.app.ao.Entities.Book;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,13 +22,14 @@ public class AuthorDTO {
 
     private Long id;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String name;
 
-    @NotNull
+    @NotBlank
     private String lastName;
 
-    @NotNull
+    @NotBlank
     private String nationality;
 
     private List<Book> books = new ArrayList<>();

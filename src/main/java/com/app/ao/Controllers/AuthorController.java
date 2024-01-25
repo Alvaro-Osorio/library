@@ -68,7 +68,7 @@ public class AuthorController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody AuthorDTO authorDTO,@PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody @Valid AuthorDTO authorDTO,@PathVariable Long id){
 
         Optional<Author> authorOptional = authorService.findById(id);
 

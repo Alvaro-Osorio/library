@@ -3,6 +3,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.PartnerDTO;
 import com.app.ao.Entities.Partner;
 import com.app.ao.Service.IPartnerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,17 +55,8 @@ public class PartnerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody PartnerDTO partnerDTO) throws URISyntaxException {
+    public ResponseEntity<?> save(@RequestBody @Valid PartnerDTO partnerDTO) throws URISyntaxException {
 
-        if(partnerDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (partnerDTO.getLastName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (partnerDTO.getAddress().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
         Partner partner = Partner.builder()
                                 .name(partnerDTO.getName())
                                 .lastName(partnerDTO.getLastName())
@@ -76,7 +68,7 @@ public class PartnerController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody PartnerDTO partnerDTO){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid PartnerDTO partnerDTO){
         Optional<Partner> partnerOptional = partnerService.findById(id);
 
         if (partnerOptional.isPresent()){
@@ -88,6 +80,18 @@ public class PartnerController {
             partnerService.save(partner);
             return ResponseEntity.ok("Actulizado");
         }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        Optional<Partner> partnerOptional = partnerService.findById(id);
+
+        if (partnerOptional.isPresent()){
+            partnerService.deleteById(id);
+
+            return ResponseEntity.ok("Eliminado");
+        }
+
         return ResponseEntity.notFound().build();
     }
 }

@@ -3,6 +3,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.LoanDTO;
 import com.app.ao.Entities.Loan;
 import com.app.ao.Service.ILoanService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,19 +57,7 @@ public class LoanController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody LoanDTO loanDTO) throws URISyntaxException {
-        if (loanDTO.getLoanDate().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (loanDTO.getReturnDate().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (loanDTO.getBook().getId() < 1){
-            return ResponseEntity.badRequest().build();
-        }
-        if (loanDTO.getPartner().getId()<1){
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> save(@RequestBody @Valid LoanDTO loanDTO) throws URISyntaxException {
 
         loanService.save(Loan.builder()
                 .loanDate(loanDTO.getLoanDate())
@@ -80,7 +69,7 @@ public class LoanController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody LoanDTO loanDTO){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid LoanDTO loanDTO){
         Optional<Loan> loanOptional = loanService.findById(id);
 
         if (loanOptional.isPresent()){

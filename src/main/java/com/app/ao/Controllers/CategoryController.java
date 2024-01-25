@@ -4,6 +4,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.CategoryDTO;
 import com.app.ao.Entities.Category;
 import com.app.ao.Service.ICategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,19 +51,16 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDTOS);
     }
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody CategoryDTO categoryDTO) throws URISyntaxException {
-
-        if (categoryDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> save(@RequestBody @Valid CategoryDTO categoryDTO) throws URISyntaxException {
 
         categoryService.save(Category.builder()
                 .name(categoryDTO.getName())
                 .build());
         return ResponseEntity.created(new URI("/api/category/save")).build();
     }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid CategoryDTO categoryDTO){
         Optional<Category> categoryOptional = categoryService.findById(id);
 
         if (categoryOptional.isPresent()){
@@ -73,6 +71,7 @@ public class CategoryController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         if (id != null) {
