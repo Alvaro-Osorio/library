@@ -20,6 +20,11 @@ public class AuthorController {
     @Autowired
     private IAuthorService authorService;
 
+    @GetMapping("/find")
+    public String find(){
+        return "index";
+    }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Optional<Author> authorOptional = authorService.findById(id);
