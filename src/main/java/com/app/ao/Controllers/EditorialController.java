@@ -3,6 +3,7 @@ package com.app.ao.Controllers;
 import com.app.ao.Controllers.DTO.EditorialDTO;
 import com.app.ao.Entities.Editorial;
 import com.app.ao.Service.IEditorialService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,14 +54,7 @@ public class EditorialController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody EditorialDTO editorialDTO) throws URISyntaxException {
-
-        if (editorialDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        if (editorialDTO.getAddress().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> save(@RequestBody @Valid EditorialDTO editorialDTO) throws URISyntaxException {
 
         editorialService.save(Editorial.builder()
                 .name(editorialDTO.getName())
@@ -71,7 +65,7 @@ public class EditorialController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody EditorialDTO editorialDTO){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid EditorialDTO editorialDTO){
         Optional<Editorial> editorialOptional = editorialService.findById(id);
 
         if (editorialOptional.isPresent()){
